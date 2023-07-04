@@ -11,6 +11,14 @@
 |
 */
 
+use App\Domain\User\Actions\GetTokenAction;
+use App\Domain\User\Actions\LoginAction;
+use App\Domain\User\Actions\PersistTokenAction;
+use App\Domain\User\Interfaces\PersonRepo;
+use App\Domain\User\Interfaces\UserRepo;
+use App\Models\User\Person;
+use App\Models\User\User;
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
@@ -40,6 +48,12 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
+
+$app->singleton(GetTokenAction::class, GetTokenAction::class);
+$app->singleton(LoginAction::class, LoginAction::class);
+$app->singleton(PersistTokenAction::class, PersistTokenAction::class);
+$app->singleton(UserRepo::class, User::class);
+$app->singleton(PersonRepo::class, Person::class);
 
 /*
 |--------------------------------------------------------------------------
